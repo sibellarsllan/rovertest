@@ -68,7 +68,11 @@ public class Rover {
                 this.x = x;
                 this.y = getMaxY();
                 System.out.println("Your position is set to " + this.x + " " + this.y);
+            } else {
+                this.x = x;
+                this.y = y;
             }
+            this.facing = facing;
         }
     }
 
@@ -102,7 +106,7 @@ public class Rover {
         } else if (command.equals('R')) {
             turnRight();
         } else if (command.equals('M')) {
-            move();
+            controlledMove();
         } else {
             throw new IllegalArgumentException(
                     "Speak in Mars language, please!");
@@ -122,55 +126,31 @@ public class Rover {
     }
 
     private void controlledMove() {
-        boolean canMove = false;
         if (getMaxX() == null) {
             move();
         } else {
-
             if (facing == N) {
-                if(++y<getMaxY()){
-                    canMove=true;
+                if (++this.y > getMaxY()) {
+                    System.out.println("You can't move to the north anymore");
+                    this.y = getMaxY();
                 }
-//                if (++y > getMaxY()) {
-//                    System.out.println("You can't move to the north anymore");
-//                    this.y = getMaxY();
-//                }else{
-//                    this.y++;
-//                }
             } else if (facing == E) {
-                if(++x<getMaxX()){
-                    canMove=true;
+                if (++this.x > getMaxX()) {
+                    System.out.println("You can't move to the east anymore");
+                    this.x = getMaxX();
                 }
-//                if (++x > getMaxX()) {
-//                    System.out.println("You can't move to the east anymore");
-//                    this.x = getMaxX();
-//                }else{
-//                    this.x++;
-//                }
             } else if (facing == S) {
-                if(--y>minY){
-                    canMove=true;
+                if (--this.y < minY) {
+                    System.out.println("You can't move to the south anymore");
+                    this.y = minY;
                 }
-//                if (--y < minY) {
-//                    System.out.println("You can't move to the south anymore");
-//                    this.y = minY;
-//                }else{
-//                    this.y--;
-//                }
             } else if (facing == W) {
-                if(--y>minY){
-                    canMove=true;
+                if (--this.x < minX) {
+                    System.out.println("You can't move to the west anymore");
+                    this.x = minX;
                 }
-//                if (--x < minX) {
-//                    System.out.println("You can't move to the west anymore");
-//                    this.x = minX;
-//                }else{
-//                    this.x--;
-//                }
             }
-            if(canMove){
-                move();
-            }
+
         }
     }
 
@@ -190,11 +170,12 @@ public class Rover {
     public static void main(String args[]) {
         Rover rover = new Rover();
         rover.setArea(5, 5);
-//        rover.setPosition(0, 0, 4);
-//        System.out.println(rover.printPosition());
+        rover.setPosition(0, 0, 4);
+        System.out.println(rover.printPosition());
         rover.setPosition(1, 2, N);
+        System.out.println(rover.printPosition());
         rover.process("LMLMLMLMM");
-        System.out.println(rover.printPosition()+"..."); // prints 1 3 N
+        System.out.println(rover.printPosition() + "..."); // prints 1 3 N
         rover.setPosition(3, 3, E);
         rover.process("MMRMMRMRRM");
         System.out.println(rover.printPosition()); // prints 5 1 E
