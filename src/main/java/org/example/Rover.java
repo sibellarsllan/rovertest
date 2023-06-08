@@ -1,8 +1,6 @@
 package org.example;
 
 
-import java.util.*;
-
 public class Rover {
     public static final Integer N = 1;
     public static final Integer E = 2;
@@ -76,11 +74,7 @@ public class Rover {
         }
     }
 
-
-    //    public String getposition() {
-//       return x  + " "  + y  + " " +  facing;
-//    }
-    public String printPosition() {
+    public String getPosition() {
         char dir = 'N';
         if (facing == 1) {
             dir = 'N';
@@ -96,7 +90,7 @@ public class Rover {
 
     public void process(String commands) {
         for (int idx = 0; idx < commands.length(); idx++) {
-            process(commands.charAt(idx));
+            process(commands.toUpperCase().charAt(idx));
         }
     }
 
@@ -171,16 +165,16 @@ public class Rover {
         Rover rover = new Rover();
         rover.setArea(5, 5);
         rover.setPosition(0, 0, 4);
-        System.out.println(rover.printPosition());
+        System.out.println(rover.getPosition());
         rover.setPosition(1, 2, N);
-        System.out.println(rover.printPosition());
+        System.out.println(rover.getPosition());
         rover.process("LMLMLMLMM");
-        System.out.println(rover.printPosition() + "..."); // prints 1 3 N
+        System.out.println(rover.getPosition() + "..."); // prints 1 3 N
         rover.setPosition(3, 3, E);
         rover.process("MMRMMRMRRM");
-        System.out.println(rover.printPosition()); // prints 5 1 E
+        System.out.println(rover.getPosition()); // prints 5 1 E
         rover.turnLeft();
-        System.out.println(rover.printPosition());
+        System.out.println(rover.getPosition());
 //        rover.setPosition(6, 7, N);
     }
 

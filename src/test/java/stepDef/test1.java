@@ -9,8 +9,8 @@ import static stepDef.Hooks.rover;
 public class test1 {
     @Given("^Rover lands on mars and assert its coordination and position$")
     public void roverLandsOnMarsAndAssertItsCoordinationAndPosition() {
-        Assert.assertEquals("0 0 N", rover.printPosition());
-        System.out.println("actual :"+rover.printPosition());
+        Assert.assertEquals("0 0 N", rover.getPosition());
+        System.out.println("actual :"+rover.getPosition());
         System.out.println("expected : 0 0 N");
 
 
